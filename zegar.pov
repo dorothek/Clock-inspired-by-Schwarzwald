@@ -5,11 +5,11 @@
 
 
 background{White}    
-camera{location<-3,0,-15> look_at<0,0,0>}
+camera{location<1,2,-17> look_at<0,0,0>}
 light_source { <1000,1000,-1000>, White}  
  
 //-----------------------------------------PÓ£KA
-#declare Pulka= object{
+#declare Polka= object{
 //pó³ka
 box{<2,-1,0>,<4,-0.7, 1.5>
 texture {pigment {Brown*3}}
@@ -192,14 +192,33 @@ box {<11, -50,-2000> <11, 50 ,2000>
 texture{pigment {Gray}}
 }
 
-union{
-box{<10,-1,-4.5><12,5,-1>
-} 
-box{<10,-1,-9.5><12,5,-5.5>
-}
+union{  
+//œrodkowy rz¹dek
 box{<10,6,-9.5><12,12,-5.5>
 }  
-box{<10,6,-4.5><12,12,-1>
+box{<10,6,-4.5><12,12,-0.5>
+} 
+box{<10,6,-10.5><12,12,-14.5>
+}      
+box{<10,6,-15.5><12,12,-19.5>
+}
+//dolny rz¹dek
+box{<10,-1,-4.5><12,5,-0.5>
+} 
+box{<10,-1,-9.5><12,5,-5.5>
+}  
+box{<10,-1,-10.5><12,5,-14.5>
+} 
+box{<10,-1,-15.5><12,5,-19.5>
+}
+//górny rz¹dek
+box{<10,13,-4.5><12,19,-0.5>
+} 
+box{<10,13,-9.5><12,19,-5.5>
+}  
+box{<10,13,-10.5><12,19,-14.5>
+} 
+box{<10,13,-15.5><12,19,-19.5>
 }
 }
      
@@ -210,12 +229,13 @@ box{<10,6,-4.5><12,12,-1>
 //rozmieszczanie obiektów 
 union{
 object {Zegar}
-object {Pulka}
+object {Polka}
 object {Swieca}  
 
 
 scale<1.5,1.5,1.5> 
 translate<0,2,-0.6>
-}     
+} 
+Sunny_Wall    
 
     
