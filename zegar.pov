@@ -1,7 +1,11 @@
 //Zegar    
 #include "colors.inc"  
 #include "woods.inc"  
-#include "shapes.inc"
+#include "shapes.inc"  
+
+#declare Frame_per_sec = 5;
+#declare Running_time = 15;
+#declare Nr_steps = Frame_per_sec*Running_time;
                           
   
 camera{location<0,0,-15> look_at<0,0,0>} 
@@ -81,26 +85,29 @@ texture{pigment{Black}}
 
 }
 
+#declare Sec_Rot = -360*clock;
 //wskazówki
 //sekundowa
 box{<-0.01, 0,-0.05>,<0.01,0.67, -0.05>  
-rotate<0,0,-15>
+rotate < 0,0,Sec_Rot>
 }
-
+  
+#declare Min_Rot = -6*clock;
 //minutowa  
 union{
 cone{<0,0,-0.057>,0.015, <0,0.5,-0.057>, 0.015}
 cone{<0,0.5,-0.057>,0.025, <0,0.55,-0.057>, 0}
 pigment {Red}  
-rotate<0,0,36>
+rotate<0,0,Min_Rot>
 }  
 
+#declare Hour_Rot = -0.5*clock;
 //godzinowa
 union{
 cone{<0,0,-0.057>,0.022, <0,0.3,-0.057>, 0.022}
 cone{<0,0.3,-0.057>, 0.03, <0,0.35,-0.057>, 0} 
 pigment {Black}
-rotate<0,0,-90>  
+rotate<0,0,Hour_Rot>  
 }
 
 //koniec tarczy 
