@@ -2,16 +2,23 @@
 #include "colors.inc"  
 #include "woods.inc"  
 #include "shapes.inc"  
-
-#declare Frame_per_sec = 5;
-#declare Running_time = 15;
-#declare Nr_steps = Frame_per_sec*Running_time;
                           
   
-camera{location<0,0,-15> look_at<0,0,0>} 
+camera{location <0,0,-15> look_at<0,0,0>} 
 background{White}
-//--------------------LIGHT SOURCES     
-#declare Day_Light=object{light_source {<100,100,-100>, White}} 
+//--------------------LIGHT SOURCES  
+#declare Sun_set = 100-(108/240)*clock;   
+ #switch (Sun_set)
+  #range (10,100)
+     #declare Brightness = White;
+  #break
+  #range (-30,10)
+     #declare Brightness = White*0.3;
+  #break
+  #else
+     #declare Brightness = Black;
+ #end
+#declare Day_Light=object{light_source {<100,Sun_set,-100>, Brightness}} 
 #declare Candles_Light=object{union{light_source{<5.01,2.77,0.3>, color Yellow*0.2
 fade_distance 5
 fade_power 3} 
