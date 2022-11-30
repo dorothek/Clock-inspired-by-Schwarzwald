@@ -3,8 +3,38 @@
 #include "woods.inc"  
 #include "shapes.inc"  
                           
+
+sky_sphere{
+    pigment{
+        gradient y
+        color_map{
+            [0 White]
+            [1 Blue]
+        }
+        scale 2
+        translate -1
+    }
+} 
+
+plane {
+y, -13
+pigment{Green}
+}
+#switch (clock)
+    #range(0, 240)
+        #declare X_movement = -10+(18/240)*clock;
+        #declare Z_movement = -20+(5/240)*clock;
+       #break 
+    #range(240, 310) 
+        #declare X_movement = 8-(8/70)*(clock-240);
+        #declare Z_movement = -15;
+       #break
+    #else  
+        #declare X_movement = 0; 
+        #declare Z_movement = -15+(10/50)*(clock-310);
+#end
   
-camera{location <0,0,-15> look_at<0,0,0>} 
+camera{location <X_movement,2,Z_movement> look_at<0,2,0>} 
 background{White}
 //--------------------LIGHT SOURCES  
 #declare Sun_set = 100-(108/240)*clock;   
@@ -13,7 +43,7 @@ background{White}
      #declare Brightness = White;
   #break
   #range (-30,10)
-     #declare Brightness = White*0.3;
+     #declare Brightness = White*0.3;  //rgb -> 000
   #break
   #else
      #declare Brightness = Black;
@@ -95,9 +125,9 @@ texture{pigment{Black}}
 #declare Sec_Rot = -360*clock;
 //wskazówki
 //sekundowa
-box{<-0.01, 0,-0.05>,<0.01,0.67, -0.05>  
+/*box{<-0.01, 0,-0.05>,<0.01,0.67, -0.05>  
 rotate < 0,0,Sec_Rot>
-}
+} */
   
 #declare Min_Rot = -6*clock;
 //minutowa  
@@ -114,7 +144,7 @@ union{
 cone{<0,0,-0.057>,0.022, <0,0.3,-0.057>, 0.022}
 cone{<0,0.3,-0.057>, 0.03, <0,0.35,-0.057>, 0} 
 pigment {Black}
-rotate<0,0,Hour_Rot>  
+rotate<0,0,Hour_Rot-60>  
 }
 
 //koniec tarczy 
