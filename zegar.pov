@@ -18,7 +18,7 @@ sky_sphere{
 
 plane {
 y, -13
-pigment{Green}
+pigment{Green*0.3}
 }
 #switch (clock)
     #range(0, 240)
@@ -35,18 +35,20 @@ pigment{Green}
 #end
   
 camera{location <X_movement,2,Z_movement> look_at<0,2,0>} 
-background{White}
+
 //--------------------LIGHT SOURCES  
-#declare Sun_set = 100-(108/240)*clock;   
+#declare Sun_set = 100-(108/240)*clock;
+#declare Getting_dark = 1-((1/50)*(clock-180));  
  #switch (Sun_set)
-  #range (10,100)
-     #declare Brightness = White;
-  #break
-  #range (-30,10)
-     #declare Brightness = White*0.3;  //rgb -> 000
+  #range (20,100)
+     #declare Brightness = White*1;
   #break
   #else
-     #declare Brightness = Black;
+     #if (Getting_dark > 0) 
+        #declare Brightness = White*Getting_dark;
+     #else
+        #declare Brightness = Black; 
+     #end
  #end
 #declare Day_Light=object{light_source {<100,Sun_set,-100>, Brightness}} 
 #declare Candles_Light=object{union{light_source{<5.01,2.77,0.3>, color Yellow*0.2
@@ -61,7 +63,7 @@ fade_power 3}
  
 //-----------------------------------------POLKA
 #declare Shelf= object{
-//pó³ka
+//polka
 box{<2,-1,0>,<4,-0.7, 1.5>
 texture {T_Wood12}
 }
@@ -69,7 +71,7 @@ texture {T_Wood12}
 //----------------------------------------Koniec polki
 
 #declare Clock= object{
-//pud³o zegara
+//pudlo zegara
 union{   
 union{ 
 object{ 
@@ -83,7 +85,7 @@ Round_Box(<-1,-1,0>, <1,1,1.5>, 0.15, 0)
 texture{ T_Wood20 scale 3}     
 }
 
-//koniec pud³a  
+//koniec pudla  
  
 //tarcza zegara
 cone{<0,0,-0.01>, 0.73, <0,0,1>, 0.73
@@ -116,14 +118,14 @@ cone{<0,0,-0.114>, 0.54, <0,0,1>, 0.5
     pigment {White*50}  }  
 }
 
-//œróbka na œrodku
+//sroba
 sphere {<0,0,0> 0.05
 texture{pigment{Black}}
 
 }
 
 #declare Sec_Rot = -360*clock;
-//wskazówki
+//wskazowki
 //sekundowa
 /*box{<-0.01, 0,-0.05>,<0.01,0.67, -0.05>  
 rotate < 0,0,Sec_Rot>
@@ -150,7 +152,7 @@ rotate<0,0,Hour_Rot-60>
 //koniec tarczy 
 
 
-//wahad³a
+//wahadla
 union{  
 cylinder{<-0.25,-1,0.75>
          <-0.25,-3,0.75>
@@ -203,10 +205,15 @@ sphere{<0,0,0> 1
 translate<-0.5,0,0>}  
 sphere{<0,0,0> 1
 translate<0.5,0,0>}
-texture{pigment { rgbf <2,2,0,1.4>}}
+texture{pigment { rgbf <2,2,0,1>}}
 scale<0.7,2,0.7>
 translate<0,0.5,0>
-no_shadow
+no_shadow 
+finish {phong 1.0
+        phong_size 0 
+        specular 1.0
+        roughness 0.5}
+
 }
 
 //cialo swiecy
